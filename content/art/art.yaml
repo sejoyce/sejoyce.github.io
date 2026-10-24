@@ -1,0 +1,35 @@
+# Your art portfolio. One entry per piece, newest first.
+# 1. Drop the image file into this folder (content/art/).
+# 2. Add an entry below. `image` is the file name, starting with ./
+# 3. `featured: true` shows it on the home page (up to 4 are used).
+# `alt` describes the image for people using screen readers.
+#
+# The three entries below are SAMPLE placeholders. Delete them and their image files.
+
+- title: Sample Piece One
+  medium: Watercolor
+  year: 2026
+  alt: Placeholder swatch in warm peach
+  featured: true
+  image: ./sample-1.jpg
+
+- title: Sample Piece Two
+  medium: Gouache
+  year: 2025
+  alt: Placeholder swatch in burnt orange
+  featured: true
+  image: ./sample-2.jpg
+
+- title: Sample Piece Three
+  medium: Ink
+  year: 2025
+  alt: Placeholder swatch in stone gray
+  featured: true
+  image: ./sample-3.jpg
+
+- title: Sample Piece Four
+  medium: Pencil
+  year: 2024
+  alt: Placeholder swatch in sand
+  featured: true
+  image: ./sample-4.jpg

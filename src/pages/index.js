@@ -1,8 +1,59 @@
 import * as React from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
+import ArtGallery from "../components/ArtGallery";
+
+const yearOf = (date) => (date ? String(date).slice(0, 4) : "");
+
+function ProjectCard({ p }) {
+  const cover = getImage(p.cover && p.cover.childImageSharp);
+  const target = p.demo || p.repo;
+  const coverNode = cover ? (
+    <GatsbyImage image={cover} alt={p.coverAlt || ""} />
+  ) : (
+    <span aria-hidden="true">{(p.title || "?").trim().charAt(0)}</span>
+  );
+  return (
+    <article className="card">
+      {target ? (
+        <a
+          className={`cover${cover ? "" : " ph"}`}
+          href={target}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={-1}
+          aria-hidden="true"
+        >
+          {coverNode}
+        </a>
+      ) : (
+        <div className={`cover${cover ? "" : " ph"}`}>{coverNode}</div>
+      )}
+      <div className="card-body">
+        {p.date && <span className="yr">{yearOf(p.date)}</span>}
+        <h3>{p.title}</h3>
+        {p.summary && <p>{p.summary}</p>}
+        {p.tech && p.tech.length > 0 && (
+          <ul className="chips">{p.tech.map((t) => <li key={t}>{t}</li>)}</ul>
+        )}
+        <div className="card-links">
+          {p.demo && (
+            <a className="btn primary" href={p.demo} target="_blank" rel="noopener noreferrer">
+              Live demo ↗
+            </a>
+          )}
+          {p.repo && (
+            <a className="btn" href={p.repo} target="_blank" rel="noopener noreferrer">
+              Source ↗
+            </a>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+}
 
 export default function HomePage({ data }) {
   const m = data.site.siteMetadata;
@@ -11,8 +62,8 @@ export default function HomePage({ data }) {
 
   return (
     <Layout>
-      {/* ---- About: front and center ---- */}
-      <section className="hero" aria-labelledby="name">
+      {/* ---- About ---- */}
+      <section id="about" className="hero" aria-labelledby="name">
         <div className={`wrap hero-grid${m.photo ? " has-photo" : ""}`}>
           <div>
             <p className="eyebrow">Hello, I'm</p>
@@ -22,8 +73,8 @@ export default function HomePage({ data }) {
               {m.bio.map((p, i) => <p key={i}>{p}</p>)}
             </div>
             <div className="hero-links">
-              <Link className="btn primary" to="/projects/">See projects</Link>
-              <Link className="btn" to="/art/">View art</Link>
+              <a className="btn primary" href="#projects">See projects</a>
+              <a className="btn" href="#art">View art</a>
               <a className="btn" href={m.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
             </div>
           </div>
@@ -35,57 +86,34 @@ export default function HomePage({ data }) {
         </div>
       </section>
 
-      {/* ---- Two halves: code | art ---- */}
-      <section className="duo" aria-label="Selected work">
-        <div className="wrap duo-grid">
-          <div className="duo-col">
-            <div className="col-head">
-              <h2><span className="num">01</span>Projects</h2>
-              <Link className="more" to="/projects/">All projects →</Link>
-            </div>
-            {projects.length ? (
-              <ul className="index">
-                {projects.map((p) => (
-                  <li key={p.id}>
-                    <Link to={`/projects/${p.fields.slug}/`}>
-                      <span className="yr">{p.frontmatter.year}</span>
-                      <span className="t">
-                        {p.frontmatter.title}
-                        {p.frontmatter.summary && <span className="s">{p.frontmatter.summary}</span>}
-                      </span>
-                      <span className="go" aria-hidden="true">↗</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div className="empty">Projects coming soon.</div>
-            )}
+      {/* ---- Projects ---- */}
+      <section id="projects" className="section" aria-labelledby="projects-h">
+        <div className="wrap">
+          <div className="section-head">
+            <h2 id="projects-h"><span className="num">01</span>Projects</h2>
+            <a className="more" href={`${m.github}?tab=repositories`} target="_blank" rel="noopener noreferrer">
+              More on GitHub ↗
+            </a>
           </div>
+          <p className="section-lede">Things I've built and published.</p>
+          {projects.length ? (
+            <div className="cards">
+              {projects.map((p) => <ProjectCard p={p} key={p.title} />)}
+            </div>
+          ) : (
+            <div className="empty">Projects coming soon.</div>
+          )}
+        </div>
+      </section>
 
-          <div className="duo-col">
-            <div className="col-head">
-              <h2><span className="num">02</span>Art</h2>
-              <Link className="more" to="/art/">Full gallery →</Link>
-            </div>
-            {art.length ? (
-              <div className="mosaic">
-                {art.map((a, i) => {
-                  const img = getImage(a.image && a.image.childImageSharp && a.image.childImageSharp.tile);
-                  return (
-                    <figure className="tile" key={`${a.title}-${i}`}>
-                      <Link to="/art/" aria-label={`${a.title || "Artwork"} in the gallery`}>
-                        {img && <GatsbyImage image={img} alt={a.alt || a.title || "Artwork"} />}
-                      </Link>
-                      {a.title && <figcaption>{a.title}</figcaption>}
-                    </figure>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="empty">Gallery coming soon.</div>
-            )}
+      {/* ---- Art ---- */}
+      <section id="art" className="section" aria-labelledby="art-h">
+        <div className="wrap">
+          <div className="section-head">
+            <h2 id="art-h"><span className="num">02</span>Art</h2>
           </div>
+          <p className="section-lede">Drawings, paintings, and other work away from the keyboard. Click any piece to see it larger.</p>
+          {art.length ? <ArtGallery items={art} /> : <div className="empty">Gallery coming soon.</div>}
         </div>
       </section>
     </Layout>
@@ -106,34 +134,32 @@ export const query = graphql`
         github
       }
     }
-    projects: allMarkdownRemark(
-      filter: { frontmatter: { featured: { eq: true } } }
-      sort: { frontmatter: { year: DESC } }
-      limit: 4
-    ) {
+    projects: allProjectsYaml(sort: { date: DESC }) {
       nodes {
-        id
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          summary
-          year
+        title
+        summary
+        date
+        tech
+        repo
+        demo
+        coverAlt
+        cover {
+          childImageSharp {
+            gatsbyImageData(width: 760, aspectRatio: 2, placeholder: BLURRED)
+          }
         }
       }
     }
-    art: allArtYaml(
-      filter: { featured: { eq: true } }
-      sort: { year: DESC }
-      limit: 4
-    ) {
+    art: allArtYaml(sort: { year: DESC }) {
       nodes {
         title
+        medium
+        year
         alt
         image {
           childImageSharp {
-            tile: gatsbyImageData(width: 480, height: 480, placeholder: BLURRED)
+            thumb: gatsbyImageData(width: 640, placeholder: BLURRED)
+            large: gatsbyImageData(width: 1600, layout: CONSTRAINED)
           }
         }
       }

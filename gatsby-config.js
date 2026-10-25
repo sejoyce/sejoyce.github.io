@@ -36,6 +36,5 @@ module.exports = {
       resolve: "gatsby-source-filesystem",
       options: { name: "art", path: `${__dirname}/content/art` },
     },
-    "gatsby-transformer-remark",
   ],
 };

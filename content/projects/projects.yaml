@@ -1,0 +1,29 @@
+# Your projects, newest first.
+# Fields:
+#   title    (required)
+#   summary  one or two sentences
+#   date     "YYYY-MM"  (only the year is shown; it also sets the order)
+#   tech     list of short labels
+#   repo     link to the GitHub repository
+#   demo     link to the live site (optional: leave it out if there isn't one)
+#   cover    screenshot file in this folder, e.g. ./my-project.jpg (optional)
+#   coverAlt describes the screenshot for screen readers
+# Projects without a cover show a tinted tile with the title's first letter.
+
+- title: Looper
+  summary: Generates a runnable loop route from an address and a target mileage. Favors trails, avoids traffic lights and dead ends, never doubles back on a street, and reports elevation gain.
+  date: "2026-10"
+  tech: [React, Vite, Leaflet, OpenStreetMap]
+  repo: https://github.com/sejoyce/looper
+  cover: ./looper.jpg
+  coverAlt: Looper showing a generated running loop on a map
+  demo: https://sejoyce.github.io/looper/
+
+- title: Painter's Eye
+  summary: An oil-paint color mixer. Upload a reference photo, click any pixel, and get the closest single paint or three-color mix, with a match score and a preview of the mixed color.
+  date: "2026-10"
+  tech: [JavaScript, HTML Canvas, Color science]
+  repo: https://github.com/sejoyce/paint-palette
+  cover: ./paint-palette.jpg
+  coverAlt: Painter's Eye color mixer showing a reference image and suggested paint mixes
+  demo: https://sejoyce.github.io/paint-palette/

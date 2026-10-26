@@ -65,10 +65,17 @@ export default function HomePage({ data }) {
       {/* ---- About ---- */}
       <section id="about" className="hero" aria-labelledby="name">
         <div className={`wrap hero-grid${m.photo ? " has-photo" : ""}`}>
-          <div>
+          <div className="hero-head">
             <p className="eyebrow">Hello, I'm</p>
             <h1 id="name">{m.name}</h1>
             {m.headline && <p className="headline">{m.headline}</p>}
+          </div>
+          {m.photo && (
+            <figure className="portrait" style={{ margin: 0 }}>
+              <img src={m.photo} alt={m.photoAlt || ""} />
+            </figure>
+          )}
+          <div className="hero-body">
             <div className="bio">
               {m.bio.map((p, i) => <p key={i}>{p}</p>)}
             </div>
@@ -78,11 +85,6 @@ export default function HomePage({ data }) {
               <a className="btn" href={m.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
             </div>
           </div>
-          {m.photo && (
-            <figure className="portrait" style={{ margin: 0 }}>
-              <img src={m.photo} alt={m.photoAlt || ""} />
-            </figure>
-          )}
         </div>
       </section>
 

@@ -27,3 +27,12 @@
   cover: ./paint-palette.jpg
   coverAlt: Painter's Eye color mixer showing a reference image and suggested paint mixes
   demo: https://sejoyce.github.io/paint-palette/
+
+- title: Chore Tracker
+  summary: A simple personal chore tracker that runs in the browser and installs to your home screen. Chores live in frequency columns that reset on their own, a To Do tab sorts what's left by urgency, and everything stays on your device with no account.
+  date: "2026-10"
+  tech: [JavaScript, HTML, PWA]
+  repo: https://github.com/sejoyce/chores-tracker-demo
+  cover: ./chore-tracker.jpg
+  coverAlt: Chore Tracker showing a chores to-do list
+  demo: https://sejoyce.github.io/chores-tracker-demo/

@@ -33,6 +33,6 @@
   date: "2026-10"
   tech: [JavaScript, HTML, PWA]
   repo: https://github.com/sejoyce/chores-tracker-demo
-  cover: ./chore-tracker.jpg
+  cover: ./chore-tracker.png
   coverAlt: Chore Tracker showing a chores to-do list
   demo: https://sejoyce.github.io/chores-tracker-demo/

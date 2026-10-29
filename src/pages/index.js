@@ -108,7 +108,7 @@ export default function HomePage({ data }) {
         </div>
       </section>
 
-      {/* ---- Art ---- */}
+      {/* ---- Art
       <section id="art" className="section" aria-labelledby="art-h">
         <div className="wrap">
           <div className="section-head">
@@ -117,7 +117,7 @@ export default function HomePage({ data }) {
           <p className="section-lede">Drawings, paintings, and other work away from the keyboard. Click any piece to see it larger.</p>
           {art.length ? <ArtGallery items={art} /> : <div className="empty">Gallery coming soon.</div>}
         </div>
-      </section>
+      </section>---- */}
     </Layout>
   );
 }

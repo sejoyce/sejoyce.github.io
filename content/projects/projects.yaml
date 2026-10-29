@@ -28,6 +28,15 @@
   coverAlt: Painter's Eye color mixer showing a reference image and suggested paint mixes
   demo: https://sejoyce.github.io/paint-palette/
 
+- title: French News Reader
+  summary: A prototype language-learning reader. Paste a link to a French news article and it underlines likely B2/C1 words and fixed expressions, with a definition on hover or tap, and credits the journalist and publication.
+  date: "2026-10"
+  tech: [JavaScript, HTML, Cloudflare Workers, Wiktionary]
+  repo: https://github.com/sejoyce/french-reader-pages
+  cover: ./french-reader.png
+  coverAlt: The French News Reader displaying an article with translatable words and phrases underlined
+  demo: https://sejoyce.github.io/french-reader-pages/
+
 - title: Chore Tracker
   summary: A simple personal chore tracker that runs in the browser and installs to your home screen. Chores live in frequency columns that reset on their own, a To Do tab sorts what's left by urgency, and everything stays on your device with no account.
   date: "2026-10"

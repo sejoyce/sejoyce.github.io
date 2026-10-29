@@ -70,6 +70,7 @@ export default function Layout({ children }) {
       <a className="skip" href="#content">Skip to content</a>
       <header className="masthead">
         <div className="wrap">
+          <Link className="brand" to="/"></Link>
           <div className="mast-right">
             <nav className="mast-nav" aria-label="Sections">
               {SECTIONS.map((s) => (

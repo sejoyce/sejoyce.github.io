@@ -6,7 +6,6 @@ import ThemeToggle from "./ThemeToggle";
 const SECTIONS = [
   { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
-  {/* ----{ id: "art", label: "Art" },---- */}
 ];
 
 // Highlights the nav item for the section currently in view (home page only).

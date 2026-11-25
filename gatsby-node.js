@@ -1,4 +1,4 @@
-// Explicit schema so the site builds even when the project/art lists are empty,
+// Explicit schema so the site builds even when the project list is empty,
 // no project has a cover image, or `links` is empty.
 exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(`
@@ -26,13 +26,6 @@ exports.createSchemaCustomization = ({ actions }) => {
       demo: String
       cover: File @fileByRelativePath
       coverAlt: String
-    }
-    type ArtYaml implements Node {
-      title: String
-      medium: String
-      year: Int
-      alt: String
-      image: File @fileByRelativePath
     }
   `);
 };

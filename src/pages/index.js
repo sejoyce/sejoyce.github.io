@@ -3,7 +3,6 @@ import { graphql } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
-import ArtGallery from "../components/ArtGallery";
 
 const yearOf = (date) => (date ? String(date).slice(0, 4) : "");
 
@@ -15,25 +14,23 @@ function ProjectCard({ p }) {
   ) : (
     <span aria-hidden="true">{(p.title || "?").trim().charAt(0)}</span>
   );
+  // The whole card is clickable: the title link is stretched over it (see .card-link in the CSS).
+  // The demo/source buttons sit above that layer and keep their own links.
   return (
-    <article className="card">
-      {target ? (
-        <a
-          className={`cover${cover ? "" : " ph"}`}
-          href={target}
-          target="_blank"
-          rel="noopener noreferrer"
-          tabIndex={-1}
-          aria-hidden="true"
-        >
-          {coverNode}
-        </a>
-      ) : (
-        <div className={`cover${cover ? "" : " ph"}`}>{coverNode}</div>
-      )}
+    <article className={`card${target ? " clickable" : ""}`}>
+      <div className={`cover${cover ? "" : " ph"}`}>{coverNode}</div>
       <div className="card-body">
         {p.date && <span className="yr">{yearOf(p.date)}</span>}
-        <h3>{p.title}</h3>
+        <h3>
+          {target ? (
+            <a className="card-link" href={target} target="_blank" rel="noopener noreferrer">
+              {p.title}
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          ) : (
+            p.title
+          )}
+        </h3>
         {p.summary && <p>{p.summary}</p>}
         {p.tech && p.tech.length > 0 && (
           <ul className="chips">{p.tech.map((t) => <li key={t}>{t}</li>)}</ul>
@@ -58,7 +55,6 @@ function ProjectCard({ p }) {
 export default function HomePage({ data }) {
   const m = data.site.siteMetadata;
   const projects = data.projects.nodes;
-  const art = data.art.nodes;
 
   return (
     <Layout>
@@ -79,11 +75,6 @@ export default function HomePage({ data }) {
             <div className="bio">
               {m.bio.map((p, i) => <p key={i}>{p}</p>)}
             </div>
-            <div className="hero-links">
-              <a className="btn primary" href="#projects">See projects</a>
-              <a className="btn" href="#art">View art</a>
-              <a className="btn" href={m.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-            </div>
           </div>
         </div>
       </section>
@@ -92,7 +83,7 @@ export default function HomePage({ data }) {
       <section id="projects" className="section" aria-labelledby="projects-h">
         <div className="wrap">
           <div className="section-head">
-            <h2 id="projects-h"><span className="num">01</span>Projects</h2>
+            <h2 id="projects-h">Projects</h2>
             <a className="more" href={`${m.github}?tab=repositories`} target="_blank" rel="noopener noreferrer">
               More on GitHub ↗
             </a>
@@ -107,17 +98,6 @@ export default function HomePage({ data }) {
           )}
         </div>
       </section>
-
-      {/* ---- Art
-      <section id="art" className="section" aria-labelledby="art-h">
-        <div className="wrap">
-          <div className="section-head">
-            <h2 id="art-h"><span className="num">02</span>Art</h2>
-          </div>
-          <p className="section-lede">Drawings, paintings, and other work away from the keyboard. Click any piece to see it larger.</p>
-          {art.length ? <ArtGallery items={art} /> : <div className="empty">Gallery coming soon.</div>}
-        </div>
-      </section>---- */}
     </Layout>
   );
 }
@@ -148,20 +128,6 @@ export const query = graphql`
         cover {
           childImageSharp {
             gatsbyImageData(width: 760, aspectRatio: 2, placeholder: BLURRED)
-          }
-        }
-      }
-    }
-    art: allArtYaml(sort: { year: DESC }) {
-      nodes {
-        title
-        medium
-        year
-        alt
-        image {
-          childImageSharp {
-            thumb: gatsbyImageData(width: 640, placeholder: BLURRED)
-            large: gatsbyImageData(width: 1600, layout: CONSTRAINED)
           }
         }
       }
